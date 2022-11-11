@@ -1,7 +1,6 @@
 # Writed by yijian (eyjian@qq.com, eyjian@gmail.com)
 # 定义公共的、可直接复用的
 # 注意使用静态库时有顺序要求，假设静态库libx.a依赖于libz.a，则指定顺序须为-lx -lz（或libx.a libz.a），不能反过来为-lz -lx（或libz.a libx.a）。
-# 2015/9/23 使用函数discover_library()优化库查找
 #
 # 约定：
 # 安装第三方库时，明确指定prefix，即指定安装目录方式，不管是automake还是CMake等方式
@@ -22,7 +21,7 @@ set(CMAKE_VERBOSE_MAKEFILE ON)
 # 定义颜色值，message()时可用到
 if (NOT WIN32)
     string(ASCII 27 Esc)
-    set(ColourReset "${Esc}[m")
+    set(ColourReset "${Esc}[0m")
     set(ColourBold  "${Esc}[1m")
     set(Red         "${Esc}[31m")
     set(Green       "${Esc}[32m")

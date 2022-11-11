@@ -6,40 +6,45 @@ include_directories(../include/mooon)
 link_directories(../src)
 link_libraries(dl pthread rt z)
 
+# 计算文件信息摘要
 if (MOOON_HAVE_OPENSSL)
-   	 # 计算md5工具
-    add_executable(md5 md5.cpp)
-    target_link_libraries(md5 libmooon.a libcrypto.a)
+    add_executable(mooon_md5 md5.cpp)
+    target_link_libraries(mooon_md5 libmooon.a libcrypto.a)
 
-    add_executable(base64 base64.cpp)
-    target_link_libraries(base64 libmooon.a libcrypto.a)
+    add_executable(mooon_base64 base64.cpp)
+    target_link_libraries(mooon_base64 libmooon.a libcrypto.a)
 
-    add_executable(sha sha.cpp)
-    target_link_libraries(sha libmooon.a libcrypto.a)
+    add_executable(mooon_sha sha.cpp)
+    target_link_libraries(mooon_sha libmooon.a libcrypto.a)
 endif ()
 
-# 硬盘性能测试工具
-add_executable(disk_benchmark disk_benchmark.cpp)
-target_link_libraries(disk_benchmark libmooon.a)
+# 测试硬盘性能
+add_executable(mooon_disk_benchmark disk_benchmark.cpp)
+target_link_libraries(mooon_disk_benchmark libmooon.a)
+# CMAKE_INSTALL_PREFIX
+install(
+    TARGETS mooon_disk_benchmark
+    DESTINATION bin
+)
 
-# pidof
-add_executable(pidof pidof.cpp)
-target_link_libraries(pidof libmooon.a)
+# 根据进程名获取进程号
+add_executable(mooon_pidof pidof.cpp)
+target_link_libraries(mooon_pidof libmooon.a)
 
-# killall
-add_executable(killall killall.cpp)
-target_link_libraries(killall libmooon.a)
+# 根据进程名杀死全部进程
+add_executable(mooon_killall killall.cpp)
+target_link_libraries(mooon_killall libmooon.a)
 
 if (MOOON_HAVE_LIBSSH2)
-	# 远程命令工具
+	# SSH多连接，执行命令
 	add_executable(mooon_ssh mooon_ssh.cpp)
 	target_link_libraries(mooon_ssh libmooon.a libssh2.a libcrypto.a)
 
-	# 批量上传工具
+	# SSH多连接，上传文件
 	add_executable(mooon_upload mooon_upload.cpp)
 	target_link_libraries(mooon_upload libmooon.a libssh2.a libcrypto.a)
 
-   	 # 下载工具
+    # SSH多连接，下载文件
     add_executable(mooon_download mooon_download.cpp)
     target_link_libraries(mooon_download libmooon.a libssh2.a libcrypto.a)
 
@@ -153,12 +158,6 @@ if (MOOON_HAVE_CURL)
     add_executable(curl_download curl_download.cpp)
     target_link_libraries(curl_download libmooon.a libcurl.a libcares.a libidn.a libssl.a libcrypto.a)
 endif ()
-
-# CMAKE_INSTALL_PREFIX
-install(
-        TARGETS disk_benchmark
-        DESTINATION bin
-)
 
 if (MOOON_HAVE_LIBRDKAFKA)
 	add_executable(kafka_consumer kafka_consumer.cpp)
