@@ -249,7 +249,7 @@ discover_library(LIBRDKAFKA librdkafka)
 # 编译参数
 # 启用__STDC_FORMAT_MACROS是为了可以使用inttypes.h中的PRId64等
 # 启用__STDC_LIMIT_MACROS是为了可以使用stdint.h中的__UINT64_C和INT32_MIN等
-add_definitions("-Wall -fPIC -pthread -D_GNU_SOURCE -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS")
+add_definitions("-Wall -Wno-volatile -Wno-unused -Wno-format-truncation -fPIC -pthread -D_GNU_SOURCE -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS")
 
 # 代码中如有使用到atomic，则和-march有关
 if (CMAKE_SIZEOF_VOID_P EQUAL 4)

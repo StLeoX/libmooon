@@ -27,7 +27,7 @@ template <>
 class CAtomic<bool>
 {
 public:
-    CAtomic<bool>()
+    CAtomic()
     {
 #if __cplusplus < 201103L
         atomic_set(&_value, 0);
@@ -36,7 +36,7 @@ public:
 #endif // __cplusplus < 201103L
     }
 
-    CAtomic<bool>(bool value)
+    CAtomic(bool value)
     {
 #if __cplusplus < 201103L
         if (value)
@@ -48,7 +48,7 @@ public:
 #endif
     }
 
-    CAtomic<bool>(const CAtomic<bool>& other)
+    CAtomic(const CAtomic<bool>& other)
     {
 #if __cplusplus < 201103L
         const int v = other.get_value();
@@ -58,7 +58,7 @@ public:
 #endif
     }
 
-    CAtomic<bool>& operator =(const CAtomic<bool>& other)
+    CAtomic& operator =(const CAtomic<bool>& other)
     {
 #if __cplusplus < 201103L
         const int v = other.get_value();
@@ -72,7 +72,7 @@ public:
         return *this;
     }
 
-    CAtomic<bool>& operator =(bool value)
+    CAtomic& operator =(bool value)
     {
 #if __cplusplus < 201103L
         if (value)
@@ -119,7 +119,7 @@ template <>
 class CAtomic<int>
 {
 public:
-    CAtomic<int>()
+    CAtomic()
     {
 #if __cplusplus < 201103L
         atomic_set(&_value, 0);
@@ -128,7 +128,7 @@ public:
 #endif
     }
 
-    CAtomic<int>(int value)
+    CAtomic(int value)
     {
 #if __cplusplus < 201103L
         atomic_set(&_value, value);
@@ -137,7 +137,7 @@ public:
 #endif
     }
 
-    CAtomic<int>(const CAtomic<int>& other)
+    CAtomic(const CAtomic<int>& other)
     {
 #if __cplusplus < 201103L
         const int v = other.get_value();
@@ -147,7 +147,7 @@ public:
 #endif
     }
 
-    CAtomic<int>& operator =(const CAtomic<int>& other)
+    CAtomic& operator =(const CAtomic<int>& other)
     {
 #if __cplusplus < 201103L
         const int v = other.get_value();
@@ -158,7 +158,7 @@ public:
         return *this;
     }
 
-    CAtomic<int>& operator =(int value)
+    CAtomic& operator =(int value)
     {
 #if __cplusplus < 201103L
         atomic_set(&_value, value);
@@ -192,7 +192,7 @@ public:
 #endif
     }
 
-    CAtomic<int>& operator ++() // 前缀
+    CAtomic& operator ++() // 前缀
     {
 #if __cplusplus < 201103L
         atomic_add_return(1, &_value);
@@ -202,7 +202,7 @@ public:
         return *this;
     }
 
-    CAtomic<int>& operator ++(int) // 后缀
+    CAtomic& operator ++(int) // 后缀
     {
 #if __cplusplus < 201103L
         atomic_add(1, &_value);
@@ -212,7 +212,7 @@ public:
         return *this;
     }
 
-    CAtomic<int>& operator --() // 前缀
+    CAtomic& operator --() // 前缀
     {
 #if __cplusplus < 201103L
         atomic_sub_return(1, &_value);
@@ -222,7 +222,7 @@ public:
         return *this;
     }
 
-    CAtomic<int>& operator --(int) // 后缀
+    CAtomic& operator --(int) // 后缀
     {
 #if __cplusplus < 201103L
         atomic_sub(1, &_value);
@@ -232,7 +232,7 @@ public:
         return *this;
     }
 
-    CAtomic<int>& operator +=(int value)
+    CAtomic& operator +=(int value)
     {
 #if __cplusplus < 201103L
         atomic_add_return(value, &_value);
@@ -242,7 +242,7 @@ public:
         return *this;
     }
 
-    CAtomic<int>& operator -=(int value)
+    CAtomic& operator -=(int value)
     {
 #if __cplusplus < 201103L
         atomic_sub_return(value, &_value);
@@ -265,7 +265,7 @@ template <>
 class CAtomic<int64_t>
 {
 public:
-    CAtomic<int64_t>()
+    CAtomic()
     {
 #if __cplusplus < 201103L
         atomic8_set(&_value, 0);
@@ -274,7 +274,7 @@ public:
 #endif
     }
 
-    CAtomic<int64_t>(int64_t value)
+    CAtomic(int64_t value)
     {
 #if __cplusplus < 201103L
         atomic8_set(&_value, value);
@@ -283,7 +283,7 @@ public:
 #endif
     }
 
-    CAtomic<int64_t>(const CAtomic<int64_t>& other)
+    CAtomic(const CAtomic<int64_t>& other)
     {
 #if __cplusplus < 201103L
         const int64_t v = other.get_value();
@@ -293,7 +293,7 @@ public:
 #endif
     }
 
-    CAtomic<int64_t>& operator =(const CAtomic<int64_t>& other)
+    CAtomic& operator =(const CAtomic<int64_t>& other)
     {
 #if __cplusplus < 201103L
         const int64_t v = other.get_value();
@@ -304,7 +304,7 @@ public:
         return *this;
     }
 
-    CAtomic<int64_t>& operator =(int64_t value)
+    CAtomic& operator =(int64_t value)
     {
 #if __cplusplus < 201103L
         atomic8_set(&_value, value);
@@ -338,7 +338,7 @@ public:
 #endif
     }
 
-    CAtomic<int64_t>& operator ++() // 前缀
+    CAtomic& operator ++() // 前缀
     {
 #if __cplusplus < 201103L
         atomic8_add_return(1, &_value);
@@ -348,7 +348,7 @@ public:
         return *this;
     }
 
-    CAtomic<int64_t>& operator ++(int) // 后缀
+    CAtomic& operator ++(int) // 后缀
     {
 #if __cplusplus < 201103L
         atomic8_add(1, &_value);
@@ -358,7 +358,7 @@ public:
         return *this;
     }
 
-    CAtomic<int64_t>& operator --() // 前缀
+    CAtomic& operator --() // 前缀
     {
 #if __cplusplus < 201103L
         atomic8_sub_return(1, &_value);
@@ -368,7 +368,7 @@ public:
         return *this;
     }
 
-    CAtomic<int64_t>& operator --(int) // 后缀
+    CAtomic& operator --(int) // 后缀
     {
 #if __cplusplus < 201103L
         atomic8_sub(1, &_value);
@@ -378,7 +378,7 @@ public:
         return *this;
     }
 
-    CAtomic<int64_t>& operator +=(int64_t value)
+    CAtomic& operator +=(int64_t value)
     {
 #if __cplusplus < 201103L
         atomic8_add_return(value, &_value);
@@ -388,7 +388,7 @@ public:
         return *this;
     }
 
-    CAtomic<int64_t>& operator -=(int64_t value)
+    CAtomic& operator -=(int64_t value)
     {
 #if __cplusplus < 201103L
         atomic8_sub_return(value, &_value);
